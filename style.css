@@ -131,17 +131,19 @@ footer .sitemap {
   	padding: 8px 16px;
   	font-size: 16px;
 }
-
 .sitemap li {
 	list-style: none;
 }
-
 main .content{
 	background-color: white;
 }
-
 main .content h3{
 	text-transform: uppercase;
 	padding: 7px;
 	background-color: #b7b7b7;
+}
+
+main .content h5{
+    font-size: 20px;
+	padding: 10px 0px 0px 5px;
 }

@@ -1,5 +1,4 @@
 var organizeByTags = function (toDoObjects) {
-
 	console.log("organizeByTags called");
 	// создание пустого массива для тегов
 	var tags = [];
@@ -14,7 +13,6 @@ var organizeByTags = function (toDoObjects) {
 		});
 	});
 	console.log(tags);
-
 	var tagObjects = tags.map(function (tag) {
 		// здесь мы находим все задачи,
 		// содержащие этот тег
@@ -32,7 +30,6 @@ var organizeByTags = function (toDoObjects) {
 	console.log(tagObjects);
 	return tagObjects;
 };
-
 var main = function (toDoObjects) {
 	"use strict";
 	var toDos = toDoObjects.map(function (toDo) {
@@ -75,20 +72,26 @@ var main = function (toDoObjects) {
 						$("main .content").append($content);
 					});
 				}
+
 				else if ($element.parent().is(":nth-child(4)")) {
-					$(".content").append(
-						'<input type="text" class="inp">' +
-						'<button class="btn">Добавить</button>'
-					);
-					var newToDo;
-					$('.btn').on('click', function () {
-						newToDo = $('.inp').val();
-						if (newToDo != '') {
-							toDos.push(newToDo);
-							alert('Новое задание "' + newToDo + '" успешно добавлено!');
-							$('.inp').val("");
-						}
-					})
+					var $input = $("<input>").addClass("description"),
+					$inputLabel = $("<h5>").text("Новая задача: "),
+					$tagInput = $("<input>").addClass("tags"),
+					$tagLabel = $("<h5>").text("Тэги: "),
+					$button = $("<button>").text("+");
+					$button.on("click", function () {
+						var description = $input.val(),
+						// разделение в соответствии с запятыми
+						tags = $tagInput.val().split(",");
+						toDoObjects.push({"description":description, "tags":tags});
+						// обновление toDos
+						toDos = toDoObjects.map(function (toDo) {
+							return toDo.description;
+						});
+						$input.val("");
+						$tagInput.val("");
+					});
+				$("main .content").append($inputLabel).append($input).append($tagLabel).append($tagInput).append($button);
 				}
 				return false;
 			})
@@ -101,4 +104,4 @@ $(document).ready(function () {
         // вызываем функцию main с задачами в качестве аргумента
         main(toDoObjects);
     });
-});
+})
